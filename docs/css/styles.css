@@ -47,7 +47,6 @@ h3,
 cite {
 	margin-top: 1rem;
     margin-bottom: 0.5rem;
-    margin-inline: 1rem;
 }
 
 h1 {
@@ -62,6 +61,10 @@ h3 {
     font-size: 1.2rem;
 }
 
+section {
+    padding-inline: 1.5rem;
+}
+
 section, article {
 	display: flex;
 	flex-direction: column;
@@ -70,6 +73,13 @@ section, article {
 	margin-block: 0.25rem;
 	width: 100%;
 	max-width: 800px;
+}
+
+@media (max-width: 600px) {
+    section, article, cite {
+        text-align: center;
+        align-items: center;
+    }
 }
 
 
@@ -89,16 +99,14 @@ section, article {
     width: 100%;
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	/* align-items: center; */
 	justify-content: center;
 	gap: 1rem;
+    flex-wrap: wrap;
 }
-
-/* row media query into column */
 
 @media (max-width: 600px) {
     .row {
-        flex-direction: column;
         gap: 0.5rem;
     }
 }
@@ -113,16 +121,34 @@ section, article {
 
 .chart {
     width: 100%;
+    padding-inline: 0.5rem;
 }
 
 /*#region Section 1 */
 .respuestas {
-	width: 9rem;
+	flex: 1 1 30%;
 	padding: 1rem;
 	border-radius: 1rem;
 	text-align: center;
 	color: var(--text-on-dark);
 	font-weight: 500;
+}
+
+@media (max-width: 600px) {
+
+    .respuestas {
+        /* width: 1fr; */
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+
+    .respuestas:first-child {
+        flex: 0 0 100%;
+    }
+
+    .respuestas:not(:first-child) {
+        flex: 1 1 45%; /* Second and third items take equal width below */
+    }
 }
 
 /*#endregion */

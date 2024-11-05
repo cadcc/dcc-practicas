@@ -62,10 +62,6 @@ new Chart(document.getElementById("response-years"), {
 			y: {
                 stacked: true,
 				beginAtZero: true,
-                title: {
-					display: true,
-					text: "Prácticas",
-				},
 			},
 		},
 	},
