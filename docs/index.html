@@ -19,6 +19,8 @@
 
 		<!-- JS -->
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+		<script src="https://cdn.jsdelivr.net/npm/patternomaly@1.3.2/dist/patternomaly.min.js"></script>
 		<script src="js/leader-line.min.js"></script>
 		<script src="js/data.js"></script>
 	</head>
@@ -26,44 +28,66 @@
 		<main>
 			<h1>Prácticas DCC</h1>
 
-            <cite>Análisis de la encuesta de experiencias de prácticas DCC, oct. 2024</cite>
+			<cite
+				>Análisis de la encuesta de experiencias de prácticas DCC, oct.
+				2024</cite
+			>
 
 			<section>
 				<h2>Respuestas</h2>
 
-                <article>
-                    <div class="row">
-                        <div class="respuestas bg-violet">
-                            Totales: <b>91</b>
-                        </div>
-                        <div class="respuestas bg-blue">
-                            Práctica 1: <b>59</b>
-                        </div>
-                        <div class="respuestas bg-green">
-                            Práctica 2: <b>32</b>
-                        </div>
-                    </div>
-                </article>
+				<article>
+					<div class="row">
+						<div class="respuestas bg-violet">Totales: <b>91</b></div>
+						<div class="respuestas bg-blue">Práctica 1: <b>59</b></div>
+						<div class="respuestas bg-green">Práctica 2: <b>32</b></div>
+					</div>
+				</article>
 
-                <article>
-                    <h3>Por año de práctica</h3>
+				<article>
+					<h3>Por año de práctica</h3>
 
-                    <div class="chart">
-                        <canvas id="response-years"></canvas>
-                    </div>
-                </article>
+					<div class="chart">
+						<canvas id="response-years"></canvas>
+					</div>
+				</article>
 			</section>
 
 			<section>
-                <h2>Modalidades</h2>
-                
-                <article>
-                    <h3>Jornada laboral</h3>
-                </article>
+				<h2>Modalidades</h2>
+
+				<article>
+					<h3>Jornada</h3>
+
+					<div class="chart">
+						<canvas id="schedule"></canvas>
+					</div>
+				</article>
+
+				<article>
+					<h3>Presencialidad</h3>
+
+					<div class="chart">
+						<canvas id="wfh"></canvas>
+					</div>
+				</article>
 
                 <article>
-                    <h3>Modalidad</h3>
+                    <h3>Duración</h3>
+
+                    <div class="chart">
+						<canvas id="duration"></canvas>
+					</div>
                 </article>
+			</section>
+
+            <section>
+                <h2>Busqueda</h2>
+                <!-- Maybe this should just be a ranked list? -->
+
+                <div class="chart">
+                    <canvas id="jobsearch"></canvas>
+                </div>
             </section>
 
 			<img id="logo" src="img/logo.png" />

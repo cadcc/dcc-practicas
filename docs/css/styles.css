@@ -10,6 +10,7 @@
 
 	--text-on-dark: #fff;
 	--text-on-light: #040115;
+    --text-on-lighter: #0d082b;
 	--lines: #1f1954;
 	--background: #e2e4f3;
 	--background-dark: #cfd5eb;
@@ -120,9 +121,22 @@ section, article {
 }
 
 .chart {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
-    padding-inline: 0.5rem;
+    max-height: 50vh;
 }
+
+.chart canvas {
+    width: 100%;
+    height: 50vh;
+}
+
 
 /*#region Section 1 */
 .respuestas {
@@ -137,7 +151,6 @@ section, article {
 @media (max-width: 600px) {
 
     .respuestas {
-        /* width: 1fr; */
         padding: 0.5rem;
         border-radius: 0.5rem;
     }
@@ -147,7 +160,7 @@ section, article {
     }
 
     .respuestas:not(:first-child) {
-        flex: 1 1 45%; /* Second and third items take equal width below */
+        flex: 1 1 45%;
     }
 }
 
