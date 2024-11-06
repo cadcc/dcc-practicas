@@ -10,7 +10,7 @@
 
 	--text-on-dark: #fff;
 	--text-on-light: #040115;
-    --text-on-lighter: #0d082b;
+	--text-on-lighter: #0d082b;
 	--lines: #1f1954;
 	--background: #e2e4f3;
 	--background-dark: #cfd5eb;
@@ -46,8 +46,9 @@ h1,
 h2,
 h3,
 cite {
-	margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin: 0;
+	margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 h1 {
@@ -59,30 +60,84 @@ h2 {
 }
 
 h3 {
-    font-size: 1.2rem;
+	font-size: 1.25rem;
+}
+
+h2,
+h3 {
+	position: relative;
+	padding-bottom: 0px;
+}
+
+h2::before {
+	content: "";
+	position: absolute;
+	left: 0px;
+	bottom: 0;
+	width: 100%;
+	height: 2px;
+	background-color: var(--accent);
+}
+
+h3 {
+    padding-left: 1.5ch;
+}
+
+h3::before {
+	content: "•";
+	position: absolute;
+	left: 0;
+    color: var(--accent);
+	/* bottom: 0; */
+	/* width: 100%; */
+	/* height: 1px; */
+	/* background-color: var(--accent);  */
 }
 
 section {
-    padding-inline: 1.5rem;
+	padding-inline: 1.5rem;
 }
 
-section, article {
+section::after {
+    content: "";
+    display: block;
+    width: 100%;
+    border-bottom: thin solid rgba(0, 0, 0, 0.25);
+}
+
+section,
+article {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 
-	margin-block: 0.25rem;
+	margin-block: 0.5rem;
 	width: 100%;
 	max-width: 800px;
 }
 
-@media (max-width: 600px) {
-    section, article, cite {
-        text-align: center;
-        align-items: center;
-    }
+p {
+	margin-block: 0.5rem;
 }
 
+a {
+	color: var(--accent);
+	font-weight: 700;
+}
+
+/* @media (max-width: 600px) {
+	section,
+	article,
+	cite {
+		align-items: center;
+	}
+} */
+
+@media (max-width: 600px) {
+	h1, h2 {
+		align-self: center;
+	}
+}
 
 .bg-violet {
 	background-color: var(--violet);
@@ -90,53 +145,69 @@ section, article {
 
 .bg-blue {
 	background-color: var(--blue);
+	background-size: 8px 8px;
+	background-image: repeating-linear-gradient(
+		to right,
+		transparent,
+		transparent 6px,
+		rgba(255, 255, 255, 0.08) 6px,
+		rgba(255, 255, 255, 0.08)
+	);
 }
 
 .bg-green {
 	background-color: var(--green);
+	background-size: 7px 7px;
+	background-image: repeating-linear-gradient(
+		to top,
+		transparent,
+		transparent 5px,
+		rgba(255, 255, 255, 0.08) 5px,
+		rgba(255, 255, 255, 0.08)
+	);
 }
 
 .row {
-    width: 100%;
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	/* align-items: center; */
 	justify-content: center;
 	gap: 1rem;
-    flex-wrap: wrap;
+	flex-wrap: wrap;
 }
 
 @media (max-width: 600px) {
-    .row {
-        gap: 0.5rem;
-    }
+	.row {
+		gap: 0.5rem;
+	}
 }
 
 .col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem;
 }
 
 .chart {
-    position: relative;
+	position: relative;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
-    width: 100%;
-    max-height: 50vh;
+	width: 100%;
+	max-height: min(50vh, 400px);
+	margin-block: 1rem;
 }
 
 .chart canvas {
-    width: 100%;
-    height: 50vh;
+	width: 100%;
+	height: 50vh;
 }
-
 
 /*#region Section 1 */
 .respuestas {
@@ -149,19 +220,18 @@ section, article {
 }
 
 @media (max-width: 600px) {
+	.respuestas {
+		padding: 0.5rem;
+		border-radius: 0.5rem;
+	}
 
-    .respuestas {
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-    }
+	.respuestas:first-child {
+		flex: 0 0 100%;
+	}
 
-    .respuestas:first-child {
-        flex: 0 0 100%;
-    }
-
-    .respuestas:not(:first-child) {
-        flex: 1 1 45%;
-    }
+	.respuestas:not(:first-child) {
+		flex: 1 1 45%;
+	}
 }
 
 /*#endregion */
@@ -175,4 +245,47 @@ section, article {
 	padding-top: 0.25rem;
 
 	background-color: var(--lines);
+}
+
+.admonition {
+	display: flex;
+	flex-direction: row;
+    align-items: center;
+
+	gap: 1rem;
+
+	margin-block: 0.5rem;
+	padding: 0.75rem;
+	width: 100%;
+
+	border-radius: 0.5rem;
+	border-width: 0 0 0 5px;
+	border-style: solid;
+}
+
+.admonition > div:first-child {
+	line-height: 24px;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.admonition > div:first-child::after {
+	line-height: 24px;
+	font-weight: bold;
+}
+
+.admonition:has(svg.feather-info) {
+	background-color: color-mix(in lab, var(--gray), rgba(255, 255, 255, 0) 70%);
+	border-color: var(--gray);
+}
+
+.admonition:has(svg.feather-alert-triangle) {
+	background-color: color-mix(in lab, var(--pink), rgba(255, 255, 255, 0) 70%);
+	border-color: var(--pink);
+}
+
+.admonition:has(svg.feather-help-circle) {
+	background-color: color-mix(in lab, var(--green), rgba(255, 255, 255, 0) 70%);
+	border-color: var(--green);
 }

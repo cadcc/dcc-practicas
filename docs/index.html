@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,6 +21,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 		<script src="https://cdn.jsdelivr.net/npm/patternomaly@1.3.2/dist/patternomaly.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 		<script src="js/leader-line.min.js"></script>
 		<script src="js/data.js"></script>
 	</head>
@@ -28,13 +29,30 @@
 		<main>
 			<h1>Prácticas DCC</h1>
 
-			<cite
-				>Análisis de la encuesta de experiencias de prácticas DCC, oct.
-				2024</cite
-			>
+			<section>
+				<h2>Preguntas frecuentes</h2>
+
+				<!-- todo -->
+
+				<ul>
+					<li><a>¿Cuanto suelen pagar las prácticas?</a></li>
+					<li><a>¿Donde puedo encontrar práctica?</a></li>
+					<li><a>¿Un mes es suficiente?</a></li>
+				</ul>
+			</section>
 
 			<section>
 				<h2>Respuestas</h2>
+
+				<p>
+					Este documento consiste en un análisis de las respuestas de la
+					encuesta de experiencias de prácticas DCC, realizado en octubre 2024. Notar que en esta encuesta se consideraron los meses de verano como parte del año anterior. Por ejemplo, si una práctica terminó en enero 2022, cuenta como hecha en 2021.
+				</p>
+
+				<!-- <cite
+				>Análisis de la encuesta de experiencias de prácticas DCC, oct.
+				2024</cite
+			> -->
 
 				<article>
 					<div class="row">
@@ -45,7 +63,12 @@
 				</article>
 
 				<article>
-					<h3>Por año de práctica</h3>
+					<h3>Prácticas por año</h3>
+
+					<p>
+						La mayoría de las respuestas vienen de gente que hizo sus práctica
+						hace relativamente poco.
+					</p>
 
 					<div class="chart">
 						<canvas id="response-years"></canvas>
@@ -57,7 +80,48 @@
 				<h2>Modalidades</h2>
 
 				<article>
+					<h3>Presencialidad</h3>
+
+					<p>
+						Hoy en dia lo más común es algún tipo de trabajo hibrido, donde se
+						asiste libremente a la oficina o un número fijo de dias a la semana.
+					</p>
+
+					<div class="chart">
+						<canvas id="wfh"></canvas>
+					</div>
+
+					<p>
+						Siguiendo la tendencia mundial en el tech, en los últimos años
+						alrededor de un 81% de las prácticas han sido remotos en alguna
+						medida (ya sea full remoto, o híbrido). En peak pandemia fueron
+						todos completamente remotos, y luego se fue recuperando la
+						presencialidad. Las oportunidades 100% remotas han estado
+						disminuyendo, pero, no parecen estar siendo reemplazadas por
+						oportunidades híbridas.
+					</p>
+
+					<div class="chart">
+						<canvas id="wfh-years"></canvas>
+					</div>
+				</article>
+
+				<article>
 					<h3>Jornada</h3>
+
+					<p>
+						La mayoría de las prácticas suelen ser full-time (alrededor de 44
+						horas semanales). Aunque no se preguntó sobre esto en la encuesta,
+						se supone que la mayoría también se realizan en verano, cuando es
+						más fácil trabajar a tiempo completo
+					</p>
+
+					<div class="admonition">
+						<i data-feather="alert-triangle"></i>
+						<div>
+							Trabajar <b>full time</b> y tener un <b>semestre normal</b> al mismo tiempo no se recomienda por ser sumamente <b>dificil y agotador</b>.
+						</div>
+					</div>
 
 					<div class="chart">
 						<canvas id="schedule"></canvas>
@@ -65,34 +129,96 @@
 				</article>
 
 				<article>
-					<h3>Presencialidad</h3>
+					<h3>Duración</h3>
+
+					<div class="admonition">
+						<div><i data-feather="info"></i></div>
+						<div>
+							La práctica profesional se define como un trabajo de
+							<b>mínimo 180 horas</b>, distribuidos en un
+							<b>máximo de dos meses</b>.
+							<sup
+								><a
+									href="https://practicas.dcc.uchile.cl/wp/practica-profesional-ii/"
+									target="_blank"
+									>[DCC]</a
+								></sup
+							>
+						</div>
+					</div>
+
+					<p>
+						A pesar del requisito oficial, se observa que casi todas las
+						prácticas superan las 180 horas, y muchas se extienden por más de
+						dos meses. Es entendible que una práctica part-time sea más larga
+						que una full-time; sin embargo, la razón de exceder la duración
+						oficial radica en que en un solo mes es difícil alcanzar logros
+						significativos. Muchos estudiantes mencionan que las primeras 2 o 3
+						semanas se dedican principalmente a la capacitación inicial, sin que
+						se pueda implementar mucho en términos prácticos, por lo que recién
+						en el segundo mes se alcanza un nivel de "productividad" real.
+					</p>
+
+					<div class="admonition">
+						<div><i data-feather="help-circle"></i></div>
+						<div>
+							En tus primeras semanas de la práctica probablemente
+							<b>no logres mucho</b> y eso <b>está bien</b>. El propósito de las
+							semanas iniciales es <b>aprender y desarrollarte</b>.
+						</div>
+					</div>
+
+					<p>
+						Esto tiene sentido para ambas partes: los empleadores quieren que
+						los practicantes aporten algo útil, y les estudiantes buscan
+						aprender y cumplir metas que les sirvan en su desarrollo
+						profesional. Cabe señalar que es posible trabajar más tiempo en la
+						empresa, aunque solo se considere una parte de ese trabajo en el
+						informe de práctica.
+					</p>
+
+					<div class="admonition">
+						<div><i data-feather="help-circle"></i></div>
+						<div>
+							Hacer una práctica <b>más larga</b> puede ser beneficioso ya que
+							se logra <b>desarrollar y aprender más.</b> El informe se puede
+							acotar.
+						</div>
+					</div>
+
+					<div class="admonition">
+						<div><i data-feather="alert-triangle"></i></div>
+						<div>
+							El seguro escolar solo dura <b>2 meses</b>. Si tu práctica durará
+							más que eso y necesitas el seguro, contactate con
+							<a href="https://dcc.uchile.cl/nosotros/equipo/" target="_blank"
+								>secretaría docente</a
+							>.
+						</div>
+					</div>
 
 					<div class="chart">
-						<canvas id="wfh"></canvas>
-					</div>
-				</article>
-
-                <article>
-                    <h3>Duración</h3>
-
-                    <div class="chart">
 						<canvas id="duration"></canvas>
 					</div>
-                </article>
+				</article>
 			</section>
 
-            <section>
-                <h2>Busqueda</h2>
-                <!-- Maybe this should just be a ranked list? -->
+			<section>
+				<h2>Búsqueda</h2>
+				<!-- Maybe this should just be a ranked list? -->
 
-                <div class="chart">
+				<!-- <div class="chart">
                     <canvas id="jobsearch"></canvas>
-                </div>
-            </section>
+                </div> -->
+			</section>
 
 			<img id="logo" src="img/logo.png" />
 		</main>
 
 		<script src="js/index.js"></script>
+
+		<script>
+			feather.replace();
+		</script>
 	</body>
 </html>

@@ -4,6 +4,17 @@ import pandas as pd
 data = pd.read_csv("data.csv")
 json_data = ""
 
+texture_fulltime = "diamond"
+texture_parttime = "diamond-box"
+color_fulltime = "#ff2a7f"
+color_parttime = "#ffd91e"
+color_other = "#606898"
+
+color_presencial = "#ff2a7f"
+color_remoto = "#1f1954"
+color_hibrido_libre = "#00ada0"
+color_hibrido_obligatorio = "#2c5aa0"
+
 
 def jsonify(name, data):
     global json_data
@@ -42,6 +53,8 @@ jsonify(
 
 # region Modalities
 
+
+# WFH (Presencialidad)
 wfh_key = {
     "remoto": "Remoto",
     "presencial": "Presencial",
@@ -49,7 +62,7 @@ wfh_key = {
     "hibrido_libre": "Híbrido (Flexible)",
 }
 
-colors = ["#ff2a7f", "#00ada0", "#2c5aa0", "#ffd91e"]
+wfh_colors = [color_remoto, color_hibrido_obligatorio, color_hibrido_libre, color_presencial]
 
 wfh_counts = data["modality"].value_counts()
 wfh_counts = wfh_counts.rename(index=wfh_key)
@@ -65,11 +78,75 @@ jsonify(
     {
         "labels": wfh_counts.index.tolist(),
         "values": wfh_counts.tolist(),
-        "colors": colors,
+        "colors": wfh_colors,
+        "patterns": ["zigzag", "weave", "zigzag-vertical", "dot"]
     },
 )
 
-schedule_key = {"full_time": "Full Time", "part_time": "Part Time", "other": "Otra"}
+
+# Years vs WFH (Presencial Percentage)
+presencial_counts_per_year = data[data["modality"] == "presencial"]["year"].value_counts().sort_index()
+total_counts_per_year = data["year"].value_counts().sort_index()
+
+# Compute percentage
+years_vs_wfh1 = {
+    year: (presencial_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    for year in all_years
+}
+
+# Híbrido (Días obligatorios) Percentage
+hibrido_obligatorio_counts_per_year = data[data["modality"] == "hibrido_obligatorio"]["year"].value_counts().sort_index()
+years_vs_wfh2 = {
+    year: (hibrido_obligatorio_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    for year in all_years
+}
+
+# Híbrido (Flexible) Percentage
+hibrido_libre_counts_per_year = data[data["modality"] == "hibrido_libre"]["year"].value_counts().sort_index()
+years_vs_wfh3 = {
+    year: (hibrido_libre_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    for year in all_years
+}
+
+remoto_counts_per_year = data[data["modality"] == "remoto"]["year"].value_counts().sort_index()
+years_vs_wfh4 = {
+    year: (remoto_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    for year in all_years
+}
+
+
+
+# Convert to lists for JSON formatting
+labels_years_wfh = list(years_vs_wfh1.keys())
+values_years_wfh1 = list(years_vs_wfh1.values())
+values_years_wfh2 = list(years_vs_wfh2.values())
+values_years_wfh3 = list(years_vs_wfh3.values())
+values_years_wfh4 = list(years_vs_wfh4.values())
+
+jsonify(
+    "yearsVsWFH",
+    {
+        "labels": labels_years_wfh,
+        "sets": [
+            "% Presenciales",
+            "% Híbridas (días obligatorios)",
+            "% Híbridas (flexible)",
+            "% Full-remotas",
+        ],
+        "values": [
+            values_years_wfh1,
+            values_years_wfh2,
+            values_years_wfh3,
+            values_years_wfh4,
+        ],
+        "colors": [color_presencial, color_hibrido_obligatorio, color_hibrido_libre, color_remoto],
+    },
+)
+
+
+
+# Schedule (Jornada)
+schedule_key = {"full_time": "Full Time", "part_time": "Part Time", "other": "Otras"}
 
 schedule_counts = data["schedule"].value_counts()
 schedule_counts = schedule_counts.rename(index=schedule_key)
@@ -79,6 +156,32 @@ jsonify(
     {
         "labels": schedule_counts.index.tolist(),
         "values": schedule_counts.tolist(),
+        "colors": [color_fulltime, color_parttime, color_other],
+        "patterns": [texture_fulltime, texture_parttime, "dot"],
+    },
+)
+
+
+# Duration
+duration_1_counts = (
+    data[data["schedule"] == "full_time"]["duration"].value_counts().sort_index()
+)
+duration_2_counts = (
+    data[data["schedule"] == "part_time"]["duration"].value_counts().sort_index()
+)
+
+durations = [y for y in sorted(data["duration"].unique())]
+values1 = [int(duration_1_counts.get(duration, 0)) for duration in durations]
+values2 = [int(duration_2_counts.get(duration, 0)) for duration in durations]
+
+jsonify(
+    "duration",
+    {
+        "labels": durations,
+        "values1": values1,
+        "values2": values2,
+        "colors": [color_fulltime, color_parttime],
+        "patterns": [texture_fulltime, texture_parttime],
     },
 )
 
