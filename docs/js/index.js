@@ -18,7 +18,6 @@ const backgroundColors = [
 	"#fafafa",
 ];
 
-
 Chart.defaults.font.family = "Nunito";
 Chart.defaults.color = colTextLight;
 Chart.defaults.set("plugins.datalabels", {
@@ -33,13 +32,21 @@ new Chart(document.getElementById("response-years"), {
 			{
 				label: "Práctica 1",
 				data: responseYears.values1,
-				backgroundColor: pattern.draw('line-vertical', responseYears.colors[0], colPatternLight),
+				backgroundColor: pattern.draw(
+					responseYears.patterns[0],
+					responseYears.colors[0],
+					colPatternLight
+				),
 				borderWidth: 0,
 			},
 			{
 				label: "Práctica 2",
 				data: responseYears.values2,
-				backgroundColor: pattern.draw('line', responseYears.colors[1], colPatternLight),
+				backgroundColor: pattern.draw(
+					responseYears.patterns[1],
+					responseYears.colors[1],
+					colPatternLight
+				),
 				borderWidth: 0,
 			},
 		],
@@ -61,7 +68,7 @@ new Chart(document.getElementById("response-years"), {
 			y: {
 				stacked: true,
 				beginAtZero: true,
-                title: {
+				title: {
 					display: true,
 					text: "Respuestas",
 				},
@@ -144,39 +151,48 @@ new Chart(document.getElementById("wfh-years"), {
 		datasets: yearsVsWFH.sets.map((set, index) => ({
 			label: set,
 			// borderColor: yearsVsWFH.colors[index],
-            backgroundColor: pattern.draw(wfh.patterns[index], yearsVsWFH.colors[index], colPattern),
-            fill: true,
+			backgroundColor: pattern.draw(
+				wfh.patterns[index],
+				yearsVsWFH.colors[index],
+				colPattern
+			),
+			fill: true,
 			data: yearsVsWFH.values[index],
 			// hidden: index !== 0,
 			...defaultLineOptions,
 		})),
 	},
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                stacked: true,
-                title: {
-                    display: true,
-                    text: "Año",
-                }
-            },
-            y: {
-                stacked: true,
-                ticks: {
-                    stepSize: 10,
-                    callback: function(value) {
-                        return value + '%';
-                    }
-                },
-                title: {
-                    display: true,
-                    text: "% de prácticas",
-                }
-            }
-        },
-    }
+	options: {
+		responsive: true,
+		maintainAspectRatio: false,
+		scales: {
+			x: {
+				stacked: true,
+				title: {
+					display: true,
+					text: "Año",
+				},
+			},
+			y: {
+				stacked: true,
+				ticks: {
+					stepSize: 10,
+					callback: function (value) {
+						return value + "%";
+					},
+				},
+				title: {
+					display: true,
+					text: "% de prácticas",
+				},
+			},
+		},
+		elements: {
+			point: {
+				radius: 0,
+			},
+		},
+	},
 });
 
 new Chart(document.getElementById("schedule"), {
@@ -244,7 +260,7 @@ new Chart(document.getElementById("duration"), {
 			y: {
 				stacked: true,
 				beginAtZero: true,
-                title: {
+				title: {
 					display: true,
 					text: "Respuestas",
 				},
@@ -253,72 +269,95 @@ new Chart(document.getElementById("duration"), {
 	},
 });
 
-// new Chart(document.getElementById("jobsearch"), {
-// 	type: "pie",
-// 	data: {
-// 		labels: jobSearch.labels,
-// 		datasets: [
-// 			{
-// 				data: jobSearch.values,
-// 				backgroundColor: backgroundColors,
-// 				borderWidth: 0,
-// 				hoverOffset: 16,
-// 				datalabels: {},
-// 			},
-// 		],
-// 	},
-// 	plugins: [ChartDataLabels],
-// 	options: {
-// 		responsive: true,
-// 		// interaction: {
-// 		//     mode: 'nearest',
-// 		//     intersect: false,
-// 		//     onHover: function (e, item) {
-// 		//         if (item.length) {
-// 		//             const data = item[0]._chart.config.data.datasets[0].data[item[0]._index];
-// 		//             console.log(item, data);
-// 		//         }
-// 		//     }
-// 		// },
-// 		onHover: function (e, item) {
-// 			// highlight the hovered index
-// 			if (item.length) {
-// 				const data =
-// 					item[0]._chart.config.data.datasets[0].data[item[0]._index];
-// 				console.log(item, data);
-// 			}
-// 		},
-// 		plugins: {
-// 			tooltip: {
-// 				enabled: false,
-// 			},
-// 			datalabels: {
-// 				formatter: (value, context) => {
-// 					let total = context.chart.data.datasets[0].data.reduce(
-// 						(sum, data) => sum + data,
-// 						0
-// 					);
-// 					let percentage = ((value / total) * 100).toFixed(2);
-// 					return (
-// 						context.chart.data.labels[context.dataIndex] +
-// 						"\n" +
-// 						percentage +
-// 						"%"
-// 					);
-// 					// return percentage + "%";
-// 				},
-// 				font: {
-// 					weight: "bold",
-// 				},
-// 				color: "#fff",
-// 				backgroundColor: "rgba(0, 0, 0, 0.8)",
-// 				borderRadius: 5,
-// 				textAlign: "center",
-// 				anchor: "end",
-// 				align: "start",
-// 				offset: 10,
-// 				display: "auto",
-// 			},
-// 		},
-// 	},
-// });
+new Chart(document.getElementById("density"), {
+	type: "line",
+	data: {
+		labels: kdeData.labels,
+		datasets: [
+			{
+				label: "General",
+				data: kdeData.values[0],
+				borderColor: kdeData.colors[0],
+				backgroundColor: kdeData.colors[0] + '55',
+				fill: true,
+				hidden: true,
+			},
+			{
+				label: "Solo práctica 1",
+				data: kdeData.values[1],
+				borderColor: kdeData.colors[1],
+				backgroundColor: pattern.draw(
+					responseYears.patterns[0],
+					kdeData.colors[1] + 'aa',
+					colPatternLight
+				),
+				fill: true,
+			},
+			{
+				label: "Solo práctica 2",
+				data: kdeData.values[2],
+				borderColor: kdeData.colors[2],
+				backgroundColor: pattern.draw(
+					responseYears.patterns[1],
+					kdeData.colors[2] + 'aa',
+					colPatternLight
+				),
+				fill: true,
+			},
+		],
+	},
+	options: {
+		responsive: true,
+		maintainAspectRatio: false,
+		scales: {
+			x: {
+				type: "linear",
+				beginAtZero: true,
+				title: {
+					display: true,
+					text: "Sueldo liquido mensual (full-time)",
+				},
+				ticks: {
+					stepSize: 50000,
+					callback: function (value, index, values) {
+						if (value == 0) {
+							return "$0";
+						}
+
+						if (value >= 1000000) {
+							return `$${value / 1000000}M`;
+						}
+
+						return `$${value / 1000}k`;
+					},
+				},
+				grid: {
+					display: true,
+					drawBorder: true,
+					color: "rgba(0, 0, 0, 0.1)",
+				},
+			},
+			y: {
+				beginAtZero: true,
+				display: false, // Remove the y-axis ticks and labels
+				grid: {
+					display: false,
+				},
+			},
+		},
+		plugins: {
+			legend: {
+				display: true,
+				position: "top",
+			},
+		},
+		elements: {
+			line: {
+				tension: 0.4,
+			},
+			point: {
+				radius: 0,
+			},
+		},
+	},
+});

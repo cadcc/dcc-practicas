@@ -1,14 +1,14 @@
-				<div class="admonition">
-					<div><i data-feather="info"></i></div>
-					<div>test content for admonition</div>
-				</div>
+<div class="admonition">
+    <div><i data-feather="info"></i></div>
+    <div>test content for admonition</div>
+</div>
 
-				<div class="admonition">
-					<div><i data-feather="help-circle"></i></div>
-					<div>test content for admonition</div>
-				</div>
+<div class="admonition">
+    <div><i data-feather="help-circle"></i></div>
+    <div>test content for admonition</div>
+</div>
 
-				<div class="admonition">
-					<div><i data-feather="alert-triangle"></i></div>
-					<div>test content for admonition</div>
-				</div>
+<div class="admonition">
+    <div><i data-feather="alert-triangle"></i></div>
+    <div>test content for admonition</div>
+</div>

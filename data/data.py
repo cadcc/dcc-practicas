@@ -1,6 +1,9 @@
 import json
 import pandas as pd
 
+import numpy as np
+from statsmodels.nonparametric.kde import KDEUnivariate
+
 data = pd.read_csv("data.csv")
 json_data = ""
 
@@ -14,6 +17,11 @@ color_presencial = "#ff2a7f"
 color_remoto = "#1f1954"
 color_hibrido_libre = "#00ada0"
 color_hibrido_obligatorio = "#2c5aa0"
+
+color_p1 = "#2c5aa0"
+texture_p1 = "line-vertical"
+color_p2 = "#00ada0"
+texture_p2 = "line"
 
 
 def jsonify(name, data):
@@ -46,7 +54,8 @@ jsonify(
         "labels": all_years,
         "values1": values1,
         "values2": values2,
-        "colors": ["#2c5aa0", "#00ada0"],
+        "colors": [color_p1, color_p2],
+        "patterns": [texture_p1, texture_p2],
     },
 )
 # endregion
@@ -62,16 +71,23 @@ wfh_key = {
     "hibrido_libre": "Híbrido (Flexible)",
 }
 
-wfh_colors = [color_remoto, color_hibrido_obligatorio, color_hibrido_libre, color_presencial]
+wfh_colors = [
+    color_remoto,
+    color_hibrido_obligatorio,
+    color_hibrido_libre,
+    color_presencial,
+]
 
 wfh_counts = data["modality"].value_counts()
 wfh_counts = wfh_counts.rename(index=wfh_key)
-wfh_counts = wfh_counts.reindex([
-    "Remoto",
-    "Híbrido (Días obligatorios)",
-    "Híbrido (Flexible)",
-    "Presencial",
-])
+wfh_counts = wfh_counts.reindex(
+    [
+        "Remoto",
+        "Híbrido (Días obligatorios)",
+        "Híbrido (Flexible)",
+        "Presencial",
+    ]
+)
 
 jsonify(
     "wfh",
@@ -79,41 +95,68 @@ jsonify(
         "labels": wfh_counts.index.tolist(),
         "values": wfh_counts.tolist(),
         "colors": wfh_colors,
-        "patterns": ["zigzag", "weave", "zigzag-vertical", "dot"]
+        "patterns": ["zigzag", "weave", "zigzag-vertical", "dot"],
     },
 )
 
 
 # Years vs WFH (Presencial Percentage)
-presencial_counts_per_year = data[data["modality"] == "presencial"]["year"].value_counts().sort_index()
+presencial_counts_per_year = (
+    data[data["modality"] == "presencial"]["year"].value_counts().sort_index()
+)
 total_counts_per_year = data["year"].value_counts().sort_index()
 
 # Compute percentage
 years_vs_wfh1 = {
-    year: (presencial_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    year: (
+        presencial_counts_per_year.get(year, 0)
+        / total_counts_per_year.get(year, 1)
+    )
+    * 100
     for year in all_years
 }
 
 # Híbrido (Días obligatorios) Percentage
-hibrido_obligatorio_counts_per_year = data[data["modality"] == "hibrido_obligatorio"]["year"].value_counts().sort_index()
+hibrido_obligatorio_counts_per_year = (
+    data[data["modality"] == "hibrido_obligatorio"]["year"]
+    .value_counts()
+    .sort_index()
+)
 years_vs_wfh2 = {
-    year: (hibrido_obligatorio_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    year: (
+        hibrido_obligatorio_counts_per_year.get(year, 0)
+        / total_counts_per_year.get(year, 1)
+    )
+    * 100
     for year in all_years
 }
 
 # Híbrido (Flexible) Percentage
-hibrido_libre_counts_per_year = data[data["modality"] == "hibrido_libre"]["year"].value_counts().sort_index()
+hibrido_libre_counts_per_year = (
+    data[data["modality"] == "hibrido_libre"]["year"]
+    .value_counts()
+    .sort_index()
+)
 years_vs_wfh3 = {
-    year: (hibrido_libre_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    year: (
+        hibrido_libre_counts_per_year.get(year, 0)
+        / total_counts_per_year.get(year, 1)
+    )
+    * 100
     for year in all_years
 }
 
-remoto_counts_per_year = data[data["modality"] == "remoto"]["year"].value_counts().sort_index()
+remoto_counts_per_year = (
+    data[data["modality"] == "remoto"]["year"].value_counts().sort_index()
+)
 years_vs_wfh4 = {
-    year: (remoto_counts_per_year.get(year, 0) / total_counts_per_year.get(year, 1)) * 100
+    year: (
+        remoto_counts_per_year.get(year, 0)
+        / total_counts_per_year.get(year, 1)
+    )
+    * 100
     for year in all_years
 }
-
 
 
 # Convert to lists for JSON formatting
@@ -139,14 +182,22 @@ jsonify(
             values_years_wfh3,
             values_years_wfh4,
         ],
-        "colors": [color_presencial, color_hibrido_obligatorio, color_hibrido_libre, color_remoto],
+        "colors": [
+            color_presencial,
+            color_hibrido_obligatorio,
+            color_hibrido_libre,
+            color_remoto,
+        ],
     },
 )
 
 
-
 # Schedule (Jornada)
-schedule_key = {"full_time": "Full Time", "part_time": "Part Time", "other": "Otras"}
+schedule_key = {
+    "full_time": "Full Time",
+    "part_time": "Part Time",
+    "other": "Otras",
+}
 
 schedule_counts = data["schedule"].value_counts()
 schedule_counts = schedule_counts.rename(index=schedule_key)
@@ -164,10 +215,14 @@ jsonify(
 
 # Duration
 duration_1_counts = (
-    data[data["schedule"] == "full_time"]["duration"].value_counts().sort_index()
+    data[data["schedule"] == "full_time"]["duration"]
+    .value_counts()
+    .sort_index()
 )
 duration_2_counts = (
-    data[data["schedule"] == "part_time"]["duration"].value_counts().sort_index()
+    data[data["schedule"] == "part_time"]["duration"]
+    .value_counts()
+    .sort_index()
 )
 
 durations = [y for y in sorted(data["duration"].unique())]
@@ -208,10 +263,7 @@ source_counts = source_counts.rename(index=source_key)
 
 jsonify(
     "jobSearch",
-    {
-        "labels": source_counts.index.tolist(),
-        "values": source_counts.tolist()
-    },
+    {"labels": source_counts.index.tolist(), "values": source_counts.tolist()},
 )
 
 # print out the percentages of each category
@@ -221,6 +273,86 @@ source_counts = source_counts.rename(index=source_key)
 
 for source in source_counts.index:
     print(f"{source}: {source_counts[source] * 100:.2f}%")
+
+# endregion
+
+
+# region Money KDE
+
+max_value = 1000000
+
+wages_first_internship = data[
+    (data["internship"] == 1) & (data["schedule"] == "full_time")
+]["salary"]
+wages_second_internship = data[
+    (data["internship"] == 2) & (data["schedule"] == "full_time")
+]["salary"]
+general_wages = data["salary"]
+
+
+def compute_kde_at(data, x_vals):
+    kde = KDEUnivariate(data)
+    kde.fit(
+        kernel="gau",
+        bw="scott",
+        fft=True,
+        gridsize=1000,
+        cut=3,
+        clip=(0, max_value),
+    )
+    kde_vals = kde.evaluate(x_vals)
+    return kde_vals
+
+
+# Define common x-values for all KDEs
+x_vals = np.linspace(0, max_value, num=101)
+
+# Compute KDEs for each dataset
+kde_general = compute_kde_at(general_wages, x_vals)
+kde_second = compute_kde_at(wages_second_internship, x_vals)
+kde_first = compute_kde_at(wages_first_internship, x_vals)
+
+# Prepare data for JSON output
+data = {
+    "labels": x_vals.tolist(),
+    "values": [
+        kde_general.tolist(),
+        kde_first.tolist(),
+        kde_second.tolist(),
+    ],
+    "colors": [
+        "#1a0856",
+        color_p1,
+        color_p2,
+    ]
+    # "datasets": [
+    #     {
+    #         "label": "Todas las prácticas",
+    #         "data": kde_general.tolist(),
+    #         "borderColor": "#00ada0",
+    #         "backgroundColor": "rgba(0, 173, 160, 0.33)",
+    #         "fill": True,
+    #         "hidden": True,
+    #     },
+    #     {
+    #         "label": "Solo práctica 1",
+    #         "data": kde_first.tolist(),
+    #         "borderColor": "#ff2a7f",
+    #         "backgroundColor": "rgba(255, 42, 127, 0.33)",
+    #         "fill": True,
+    #     },
+    #     {
+    #         "label": "Solo práctica 2",
+    #         "data": kde_second.tolist(),
+    #         "borderColor": "#ffd91e",
+    #         "backgroundColor": "rgba(255, 217, 30, 0.33)",
+    #         "fill": True,
+    #     },
+    # ],
+}
+
+# Output JSON data
+jsonify("kdeData", data)
 
 # endregion
 
