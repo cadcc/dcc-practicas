@@ -175,6 +175,7 @@ a {
 	justify-content: center;
 	gap: 1rem;
 	flex-wrap: wrap;
+    margin-bottom: 0.5rem;
 }
 
 @media (max-width: 600px) {
@@ -290,4 +291,30 @@ h3>sup{
     font-size: 0.5em;
     /* color: var(--gray); */
     top: -1em;
+}
+
+h4 {
+    font-size: 1.1rem;
+    margin: 0.5rem;
+    margin-top: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0.5rem;
+}
+
+th, td {
+    text-align: center;
+    border: 1px solid var(--gray);
+}
+
+th {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(1, 1, 1, 0.1);
 }
