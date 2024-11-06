@@ -263,16 +263,10 @@ a {
 	border-style: solid;
 }
 
-.admonition > div:first-child {
-	line-height: 24px;
-	display: inline-flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.admonition > div:first-child::after {
-	line-height: 24px;
-	font-weight: bold;
+.admonition>div:first-child {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .admonition:has(svg.feather-info) {
@@ -288,4 +282,12 @@ a {
 .admonition:has(svg.feather-help-circle) {
 	background-color: color-mix(in lab, var(--green), rgba(255, 255, 255, 0) 70%);
 	border-color: var(--green);
+}
+
+
+h3>sup{
+    font-weight: normal;
+    font-size: 0.5em;
+    /* color: var(--gray); */
+    top: -1em;
 }

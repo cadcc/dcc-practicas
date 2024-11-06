@@ -214,6 +214,14 @@ jsonify(
     },
 )
 
+# print out the percentages of each category
+
+source_counts = data["source"].value_counts(normalize=True)
+source_counts = source_counts.rename(index=source_key)
+
+for source in source_counts.index:
+    print(f"{source}: {source_counts[source] * 100:.2f}%")
+
 # endregion
 
 
