@@ -24,6 +24,11 @@ Chart.defaults.set("plugins.datalabels", {
 	color: colTextDark,
 });
 
+const defaultHover = {
+    hoverBorderWidth: 2,
+    hoverBorderColor: "#fafafa"
+}
+
 new Chart(document.getElementById("response-years"), {
 	type: "bar",
 	data: {
@@ -38,6 +43,7 @@ new Chart(document.getElementById("response-years"), {
 					colPatternLight
 				),
 				borderWidth: 0,
+                ...defaultHover,
 			},
 			{
 				label: "Práctica 2",
@@ -48,6 +54,7 @@ new Chart(document.getElementById("response-years"), {
 					colPatternLight
 				),
 				borderWidth: 0,
+                ...defaultHover,
 			},
 		],
 	},
@@ -131,7 +138,7 @@ new Chart(document.getElementById("wfh"), {
 					pattern.draw(wfh.patterns[3], wfh.colors[3], colPattern),
 				],
 				borderWidth: 0,
-				hoverOffset: 16,
+				...defaultHover
 			},
 		],
 	},
@@ -150,7 +157,6 @@ new Chart(document.getElementById("wfh-years"), {
 		labels: yearsVsWFH.labels,
 		datasets: yearsVsWFH.sets.map((set, index) => ({
 			label: set,
-			// borderColor: yearsVsWFH.colors[index],
 			backgroundColor: pattern.draw(
 				wfh.patterns[index],
 				yearsVsWFH.colors[index],
@@ -158,7 +164,6 @@ new Chart(document.getElementById("wfh-years"), {
 			),
 			fill: true,
 			data: yearsVsWFH.values[index],
-			// hidden: index !== 0,
 			...defaultLineOptions,
 		})),
 	},
@@ -208,7 +213,7 @@ new Chart(document.getElementById("schedule"), {
 					pattern.draw(schedule.patterns[2], schedule.colors[2], colPattern),
 				],
 				borderWidth: 0,
-				hoverOffset: 16,
+                ...defaultHover
 			},
 		],
 	},
@@ -230,6 +235,7 @@ new Chart(document.getElementById("duration"), {
 					colPattern
 				),
 				borderWidth: 2,
+                ...defaultHover
 			},
 			{
 				label: "Prácticas Full-time",
@@ -240,6 +246,7 @@ new Chart(document.getElementById("duration"), {
 					colPattern
 				),
 				borderWidth: 2,
+                ...defaultHover
 			},
 		],
 	},
@@ -275,14 +282,6 @@ new Chart(document.getElementById("density"), {
 		labels: kdeData.labels,
 		datasets: [
 			{
-				label: "General",
-				data: kdeData.values[0],
-				borderColor: kdeData.colors[0],
-				backgroundColor: kdeData.colors[0] + '55',
-				fill: true,
-				hidden: true,
-			},
-			{
 				label: "Solo práctica 1",
 				data: kdeData.values[1],
 				borderColor: kdeData.colors[1],
@@ -303,7 +302,7 @@ new Chart(document.getElementById("density"), {
 					colPatternLight
 				),
 				fill: true,
-			},
+			}
 		],
 	},
 	options: {
@@ -395,6 +394,7 @@ new Chart(document.getElementById("confidence"), {
     },
     options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
             legend: {
                 display: true,
