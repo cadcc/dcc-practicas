@@ -26,6 +26,8 @@
 		<script src="js/data.js"></script>
 	</head>
 	<body>
+		<img id="logo" src="img/logo.png" />
+
 		<main>
 			<h1>Prácticas DCC</h1>
 
@@ -35,9 +37,18 @@
 				<!-- todo -->
 
 				<ul>
-					<li><a>💸 ¿Cuanto suelen pagar las prácticas?</a></li>
-					<li><a>🕵️‍♀️ ¿Donde puedo encontrar práctica?</a></li>
-					<li><a>📆 ¿Un mes de trabajo es suficiente?</a></li>
+					<li>💸 <a href="#sueldos">¿Cuánto suelen pagar las prácticas?</a></li>
+					<li>⌚ <a href="#parttime">¿Cuánto menos paga ser part-time?</a></li>
+					<li>🕵️‍♀️ <a href="#busqueda">¿Donde puedo encontrar práctica?</a></li>
+					<li>
+						👩‍💻 <a href="#presencialidad">¿Está muriendo el trabajo remoto?</a>
+					</li>
+					<li>📆 <a href="#duracion">¿Un mes de trabajo es suficiente?</a></li>
+					<li>📈 <a href="#evolucion">¿Están pagando más hoy en día?</a></li>
+					<li>
+						📱 <a href="#telegram">¿Hay un grupo de telegram de empleos?</a>
+					</li>
+					<li>😭 <a href="#otros">Ayuda no entiendo nadaaa</a></li>
 				</ul>
 			</section>
 
@@ -57,7 +68,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="años">
 					<h3>Prácticas por año</h3>
 
 					<p>
@@ -70,7 +81,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="howtoread">
 					<h3>Información y sugerencias</h3>
 
 					<p>
@@ -102,7 +113,7 @@
 			<section>
 				<h2>Modalidades</h2>
 
-				<article>
+				<article id="presencialidad">
 					<h3>Presencialidad</h3>
 
 					<p>
@@ -131,7 +142,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="jornada">
 					<h3>Jornada</h3>
 
 					<p>
@@ -155,7 +166,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="duracion">
 					<h3>Duración</h3>
 
 					<div class="admonition">
@@ -228,7 +239,7 @@
 				</article>
 			</section>
 
-			<section>
+			<section id="busqueda">
 				<h2>Búsqueda</h2>
 
 				<article>
@@ -250,7 +261,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="ucursos">
 					<h3>U-Cursos <sup>26.37%</sup></h3>
 
 					<p>
@@ -288,7 +299,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="bolsas">
 					<h3>Bolsas de trabajo <sup>24.18%</sup></h3>
 
 					<p>
@@ -334,7 +345,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="redes-personales">
 					<h3>Redes personales <sup>17.58%</sup></h3>
 
 					<p>
@@ -362,7 +373,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="redes-profesionales">
 					<h3>Redes profesionales <sup>7.69%</sup></h3>
 
 					<p>
@@ -390,7 +401,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="eventos">
 					<h3>Eventos <sup>9.89%</sup></h3>
 
 					<p>
@@ -424,7 +435,7 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="telegram">
 					<h3>Telegram <sup>5.49%</sup></h3>
 
 					<p>
@@ -439,7 +450,7 @@
 					</p>
 				</article>
 
-				<article>
+				<article id="directo">
 					<h3>Reclutamiento y postulación directa <sup>4.40% y 2.20%</sup></h3>
 
 					<p>
@@ -464,7 +475,7 @@
 				</article>
 			</section>
 
-			<section>
+			<section id="sueldos">
 				<h2>Sueldos</h2>
 
 				<p>
@@ -551,8 +562,8 @@
 
 					<p>
 						Al observar la distribución simulada de los sueldos, se puede notar
-						que los de la práctica 1 tienden a concentrarse cerca de la mediana.
-						En cambio, los sueldos de la práctica 2 suelen variar más,
+						que los de la <span class="underline-blue">práctica 1</span> tienden a concentrarse cerca de la mediana.
+						En cambio, los sueldos de la <span class="underline-green">práctica 2</span> suelen variar más,
 						especialmente en rangos altos. Cabe mencionar que algunos
 						encuestados indicaron que para su práctica 2 obtuvieron empleos
 						regulares en empresas.
@@ -571,8 +582,49 @@
 					</div>
 				</article>
 
-				<article>
+				<article id="parttime">
 					<h3>Part-time vs. Full-time</h3>
+
+					<p>
+						En la encuesta no se preguntó cuantas horas se trabajaron en
+						jornadas parciales, pero jornada parcial suele ser de 30 horas o
+						menos.
+					</p>
+
+					<h4 class="underline-blue">Práctica 1</h4>
+					<ul>
+						<li>
+							<b>Mediana de sueldos:</b> part-time corresponde a un 70.0% de full-time.
+						</li>
+						<li>
+							<b>Promedio de sueldos:</b> part-time corresponde a un 69.7% de full-time.
+						</li>
+					</ul>
+
+					<h4 class="underline-green">Práctica 2</h4>
+					<ul>
+						<li>
+							<b>Mediana de sueldos:</b> part-time corresponde a un 66.7% de full-time.
+						</li>
+						<li>
+							<b>Promedio de sueldos:</b> part-time corresponde a un 82.5% de full-time.
+						</li>
+					</ul>
+
+					<p>
+						Considerando que 30 horas (el máximo de jornada parcial) son un 68%
+						de 44 horas (la jornada completa actual), los sueldos part-time
+						parecen ser como mínimo proporcionales a las horas trabajadas.
+					</p>
+
+					<div class="admonition">
+						<div><i data-feather="help-circle"></i></div>
+						<div>
+							Si trabajarás part-time, asegúrate de que el sueldo sea
+							<b>al menos</b>
+							proporcional a las horas trabajadas.
+						</div>
+					</div>
 
 					<div class="admonition">
 						<div><i data-feather="alert-triangle"></i></div>
@@ -582,9 +634,112 @@
 						</div>
 					</div>
 				</article>
+
+				<article id="evolucion">
+					<h3>Evolución de sueldos de prácticas</h3>
+
+					<!-- todo: disclaimer that there might not be enough data for this -->
+
+					<p>
+						El sueldo promedio de las prácticas parece estar aumentando año a
+						año. Sin embargo, es importante señalar que el tamaño de la muestra
+						en esta encuesta no fue lo suficientemente amplio como para llegar a
+						conclusiones definitivas.
+					</p>
+
+					<div class="chart">
+						<canvas id="confidence"></canvas>
+					</div>
+
+					<div class="admonition">
+						<div><i data-feather="info"></i></div>
+						<div>
+							El IPC ha subido un 35.2% entre septiembre 2019 y septiembre 2024.
+							Esto significa que $200k del 2019 son equivalentes a ~$270k del
+							2024.
+						</div>
+					</div>
+				</article>
 			</section>
 
-			<img id="logo" src="img/logo.png" />
+			<section id="otros">
+				<h2>Otros</h2>
+
+				<p>
+					Hay muchas preguntas que este analisis no puede contestar, así que si
+					quedaste con preguntas, te recomendamos revisar los siguientes
+					recursos:
+				</p>
+
+				<ul>
+					<li>
+						<a
+							href="https://faq.cadcc.cl/es/latest/Pr%C3%A1cticas/FAQ/"
+							target="_blank"
+							>FAQ CaDCC - Preguntas frecuentes sobre las prácticas</a
+						>
+					</li>
+					<li>
+						<a
+							href="https://faq.cadcc.cl/es/latest/Pr%C3%A1cticas/How%20do%20I%20Practica/"
+							target="_blank"
+							>FAQ CaDCC - Como hacer una práctica</a
+						>
+					</li>
+					<li>
+						<a
+							href="https://faq.cadcc.cl/es/latest/Pr%C3%A1cticas/Informe/"
+							target="_blank"
+							>FAQ CaDCC - Informe de práctica</a
+						>
+					</li>
+					<li>
+						<a href="https://practicas.dcc.uchile.cl/wp" target="_blank"
+							>DCC - Taller y ramo de práctica</a
+						>
+					</li>
+					<li>
+						<a
+							href="https://practicas.dcc.uchile.cl/wp/normativa/"
+							target="_blank"
+							>DCC - Normativas de prácticas</a
+						>
+					</li>
+					<li>
+						<a
+							href="https://practicas.dcc.uchile.cl/wp/plan-de-practica/"
+							target="_blank"
+							>DCC - Plan de práctica</a
+						>
+					</li>
+					<li>
+						<a
+							href="https://practicas.dcc.uchile.cl/wp/informe-de-practica/"
+							target="_blank"
+							>DCC - Informe de práctica</a
+						>
+					</li>
+				</ul>
+
+				<p>
+					En el foro de U-Cursos y el chat de Telegram del DCC siempre hay gente
+					dispuesta a ayudar y contestar dudas.
+				</p>
+
+				<p>
+					Si estás leyendo esto mientras buscas una práctica,
+					<b>mucha suerte y éxito!!!!</b>
+				</p>
+			</section>
+
+			<footer>
+				<span
+					><a href="https://github.com/Nyveon/dcc-practicas" target="_blank"
+						>Código fuente (por Eric K.)</a
+					></span
+				>
+				<span>Última actualización noviembre 2024.</span>
+			</footer>
 		</main>
 
 		<script src="js/index.js"></script>

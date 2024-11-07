@@ -361,3 +361,71 @@ new Chart(document.getElementById("density"), {
 		},
 	},
 });
+
+
+new Chart(document.getElementById("confidence"), {
+    type: 'line',
+    data: {
+        labels: confidence.labels,
+        datasets: [
+            {
+                label: "Sueldo promedio",
+                data: confidence.datasets[0].data,
+                borderColor: colViolet,
+                backgroundColor: colViolet + "aa",
+                fill: false,
+                borderWidth: 2,
+                pointRadius: 3
+            },
+            {
+                label: "Intervalo de confianza del 95%",
+                data: confidence.datasets[1].data,
+                borderColor: "transparent",
+                backgroundColor: "#403c8a" + "aa",
+                fill: 2
+            },
+            {
+                label: "",
+                data: confidence.datasets[2].data,
+                borderColor: "transparent",
+                backgroundColor: "#403c8a" + "aa",
+                fill: false  // Fills up to the dataset above
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top',
+                labels: {
+                    filter: item => item.text !== ""
+                }
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Year'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Salary'
+                }
+            }
+        },
+        elements: {
+            point: {
+                radius: 0
+            }
+        }
+    }
+});

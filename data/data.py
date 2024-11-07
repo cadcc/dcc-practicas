@@ -313,7 +313,7 @@ kde_second = compute_kde_at(wages_second_internship, x_vals)
 kde_first = compute_kde_at(wages_first_internship, x_vals)
 
 # Prepare data for JSON output
-data = {
+kde_data = {
     "labels": x_vals.tolist(),
     "values": [
         kde_general.tolist(),
@@ -325,34 +325,40 @@ data = {
         color_p1,
         color_p2,
     ]
-    # "datasets": [
-    #     {
-    #         "label": "Todas las prácticas",
-    #         "data": kde_general.tolist(),
-    #         "borderColor": "#00ada0",
-    #         "backgroundColor": "rgba(0, 173, 160, 0.33)",
-    #         "fill": True,
-    #         "hidden": True,
-    #     },
-    #     {
-    #         "label": "Solo práctica 1",
-    #         "data": kde_first.tolist(),
-    #         "borderColor": "#ff2a7f",
-    #         "backgroundColor": "rgba(255, 42, 127, 0.33)",
-    #         "fill": True,
-    #     },
-    #     {
-    #         "label": "Solo práctica 2",
-    #         "data": kde_second.tolist(),
-    #         "borderColor": "#ffd91e",
-    #         "backgroundColor": "rgba(255, 217, 30, 0.33)",
-    #         "fill": True,
-    #     },
-    # ],
 }
 
-# Output JSON data
-jsonify("kdeData", data)
+
+jsonify("kdeData", kde_data)
+
+salary_summary = data.groupby('year')['salary'].agg(['mean', 'std', 'count']).reset_index()
+salary_summary['ci95'] = 1.96 * (salary_summary['std'] / np.sqrt(salary_summary['count']))
+
+
+chart_data = {
+    "labels": salary_summary["year"].tolist(),
+    "datasets": [
+        {
+            "label": "Average Salary",
+            "data": salary_summary["mean"].tolist(),
+            "borderColor": "blue",
+            "fill": False
+        },
+        {
+            "label": "Upper 95% Confidence Interval",
+            "data": (salary_summary["mean"] + salary_summary["ci95"]).tolist(),
+            "borderColor": "rgba(0, 0, 255, 0.2)",
+            "fill": "-1"  # Fill to the previous dataset
+        },
+        {
+            "label": "Lower 95% Confidence Interval",
+            "data": (salary_summary["mean"] - salary_summary["ci95"]).tolist(),
+            "borderColor": "rgba(0, 0, 255, 0.2)",
+            "fill": "-1"  # Fill to the previous dataset
+        }
+    ]
+}
+
+jsonify("confidence", chart_data)
 
 # endregion
 
