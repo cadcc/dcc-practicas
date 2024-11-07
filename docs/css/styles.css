@@ -175,15 +175,6 @@ a:hover {
     color: var(--highlight);
 }
 
-
-/* @media (max-width: 600px) {
-	section,
-	article,
-	cite {
-		align-items: center;
-	}
-} */
-
 @media (max-width: 600px) {
 	h1,
 	h2 {
@@ -342,23 +333,27 @@ footer {
 	flex-direction: column;
 	justify-content: center;
     align-items: center;
-	gap: 0.5rem;
-	width: 100%;
+	gap: 0.75rem;
+
     margin-top: 1rem;
 	margin-bottom: 3rem;
+    padding-inline: 1.5rem;
+
+    text-align: center;
 }
 
 footer a {
-    height: 42px;
+    max-width: 100%;
 
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
 
     color: var(--accent);
     text-decoration: none;
+    text-align: center;
 }
+
 
 .icon-link:hover {
     color: var(--highlight);
@@ -513,5 +508,3 @@ ul:not(.emojis) li::before {
 ul li {
 	margin-bottom: 0.5rem;
 }
-
-/* last section should have no lower border */
