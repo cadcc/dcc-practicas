@@ -400,6 +400,26 @@ tr:nth-child(odd) {
 }
 
 /* ul a bit more spacing between items */
+
+/*custom ul deco */
+
+ul {
+    list-style-type: none;
+    padding-inline-start: 0;
+}
+
+ul:not(.emojis) {
+    position: relative;
+    padding-inline-start: 1.5ch;
+}
+
+ul:not(.emojis) li::before {
+	content: "•";
+	position: absolute;
+	left: 0;
+    color: var(--accent);
+}
+
 ul li {
     margin-bottom: 0.5rem;
 }
