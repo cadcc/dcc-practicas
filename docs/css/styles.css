@@ -398,24 +398,24 @@ footer {
 }
 
 h3 > span {
-    font-weight: normal;
-    font-size: 0.75em;
-    margin-left: 0.5rem;
-    opacity: 0.8;
+	font-weight: normal;
+	font-size: 0.75em;
+	margin-left: 0.5rem;
+	opacity: 0.8;
 }
 
 @media (max-width: 600px) {
-    h3 {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
+	h3 {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-    h3 > span {
-        margin-left: 0;
-    }
+	h3 > span {
+		margin-left: 0;
+	}
 }
 
 h4 {

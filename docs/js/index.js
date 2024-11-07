@@ -24,10 +24,22 @@ Chart.defaults.set("plugins.datalabels", {
 	color: colTextDark,
 });
 
+Chart.register(ChartDeferred);
+
 const defaultHover = {
-    hoverBorderWidth: 2,
-    hoverBorderColor: "#fafafa"
-}
+	hoverBorderWidth: 2,
+	hoverBorderColor: "#fafafa",
+};
+
+const anim = {
+	delay: (context) => {
+		let delay = 0;
+		if (context.type === "data" && context.mode === "default") {
+			delay = context.dataIndex * 300 + context.datasetIndex * 100;
+		}
+		return delay;
+	},
+};
 
 new Chart(document.getElementById("response-years"), {
 	type: "bar",
@@ -43,7 +55,7 @@ new Chart(document.getElementById("response-years"), {
 					colPatternLight
 				),
 				borderWidth: 0,
-                ...defaultHover,
+				...defaultHover,
 			},
 			{
 				label: "Práctica 2",
@@ -54,13 +66,14 @@ new Chart(document.getElementById("response-years"), {
 					colPatternLight
 				),
 				borderWidth: 0,
-                ...defaultHover,
+				...defaultHover,
 			},
 		],
 	},
 	options: {
 		responsive: true,
 		maintainAspectRatio: false,
+		animation: anim,
 		scales: {
 			x: {
 				stacked: true,
@@ -138,7 +151,7 @@ new Chart(document.getElementById("wfh"), {
 					pattern.draw(wfh.patterns[3], wfh.colors[3], colPattern),
 				],
 				borderWidth: 0,
-				...defaultHover
+				...defaultHover,
 			},
 		],
 	},
@@ -213,7 +226,7 @@ new Chart(document.getElementById("schedule"), {
 					pattern.draw(schedule.patterns[2], schedule.colors[2], colPattern),
 				],
 				borderWidth: 0,
-                ...defaultHover
+				...defaultHover,
 			},
 		],
 	},
@@ -235,7 +248,7 @@ new Chart(document.getElementById("duration"), {
 					colPattern
 				),
 				borderWidth: 2,
-                ...defaultHover
+				...defaultHover,
 			},
 			{
 				label: "Prácticas Full-time",
@@ -246,13 +259,14 @@ new Chart(document.getElementById("duration"), {
 					colPattern
 				),
 				borderWidth: 2,
-                ...defaultHover
+				...defaultHover,
 			},
 		],
 	},
 	options: {
 		responsive: true,
 		maintainAspectRatio: false,
+		animation: anim,
 		scales: {
 			x: {
 				stacked: true,
@@ -276,6 +290,18 @@ new Chart(document.getElementById("duration"), {
 	},
 });
 
+function toShortMoney(value) {
+	if (value == 0) {
+		return "$0";
+	}
+
+	if (value >= 1000000) {
+		return `$${value / 1000000}M`;
+	}
+
+	return `$${value / 1000}k`;
+}
+
 new Chart(document.getElementById("density"), {
 	type: "line",
 	data: {
@@ -287,7 +313,7 @@ new Chart(document.getElementById("density"), {
 				borderColor: kdeData.colors[1],
 				backgroundColor: pattern.draw(
 					responseYears.patterns[0],
-					kdeData.colors[1] + 'aa',
+					kdeData.colors[1] + "aa",
 					colPatternLight
 				),
 				fill: true,
@@ -298,11 +324,11 @@ new Chart(document.getElementById("density"), {
 				borderColor: kdeData.colors[2],
 				backgroundColor: pattern.draw(
 					responseYears.patterns[1],
-					kdeData.colors[2] + 'aa',
+					kdeData.colors[2] + "aa",
 					colPatternLight
 				),
 				fill: true,
-			}
+			},
 		],
 	},
 	options: {
@@ -319,15 +345,7 @@ new Chart(document.getElementById("density"), {
 				ticks: {
 					stepSize: 50000,
 					callback: function (value, index, values) {
-						if (value == 0) {
-							return "$0";
-						}
-
-						if (value >= 1000000) {
-							return `$${value / 1000000}M`;
-						}
-
-						return `$${value / 1000}k`;
+						return toShortMoney(value);
 					},
 				},
 				grid: {
@@ -361,71 +379,76 @@ new Chart(document.getElementById("density"), {
 	},
 });
 
-
 new Chart(document.getElementById("confidence"), {
-    type: 'line',
-    data: {
-        labels: confidence.labels,
-        datasets: [
-            {
-                label: "Sueldo promedio",
-                data: confidence.datasets[0].data,
-                borderColor: colViolet,
-                backgroundColor: colViolet + "aa",
-                fill: false,
-                borderWidth: 2,
-                pointRadius: 3
-            },
-            {
-                label: "Intervalo de confianza del 95%",
-                data: confidence.datasets[1].data,
-                borderColor: "transparent",
-                backgroundColor: "#403c8a" + "aa",
-                fill: 2
-            },
-            {
-                label: "",
-                data: confidence.datasets[2].data,
-                borderColor: "transparent",
-                backgroundColor: "#403c8a" + "aa",
-                fill: false  // Fills up to the dataset above
-            }
-        ]
-    },
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: {
-                    filter: item => item.text !== ""
-                }
-            },
-            tooltip: {
-                mode: 'index',
-                intersect: false
-            }
-        },
-        scales: {
-            x: {
-                title: {
-                    display: true,
-                    text: 'Year'
-                }
-            },
-            y: {
-                title: {
-                    display: true,
-                    text: 'Salary'
-                }
-            }
-        },
-        elements: {
-            point: {
-                radius: 0
-            }
-        }
-    }
+	type: "line",
+	data: {
+		labels: confidence.labels,
+		datasets: [
+			{
+				label: "Sueldo promedio",
+				data: confidence.datasets[0].data,
+				borderColor: colViolet,
+				backgroundColor: colViolet + "aa",
+				fill: false,
+				borderWidth: 2,
+				pointRadius: 3,
+			},
+			{
+				label: "Intervalo de confianza del 95%",
+				data: confidence.datasets[1].data,
+				borderColor: "transparent",
+				backgroundColor: "#403c8a" + "aa",
+				fill: 2,
+			},
+			{
+				label: "",
+				data: confidence.datasets[2].data,
+				borderColor: "transparent",
+				backgroundColor: "#403c8a" + "aa",
+				fill: false, // Fills up to the dataset above
+			},
+		],
+	},
+	options: {
+		responsive: true,
+		maintainAspectRatio: false,
+		plugins: {
+			legend: {
+				display: true,
+				position: "top",
+				labels: {
+					filter: (item) => item.text !== "",
+				},
+			},
+			tooltip: {
+				mode: "index",
+				intersect: false,
+			},
+		},
+		scales: {
+			x: {
+				title: {
+					display: true,
+					text: "Año",
+				},
+			},
+			y: {
+				title: {
+					display: true,
+					text: "Sueldo",
+				},
+				ticks: {
+					stepSize: 50000,
+					callback: function (value) {
+						return toShortMoney(value);
+					},
+				},
+			},
+		},
+		elements: {
+			point: {
+				radius: 0,
+			},
+		},
+	},
 });
