@@ -339,7 +339,7 @@ footer {
     font-size: 0.8rem;
 }
 
-span {
+footer span {
     display: flex;
     justify-content: center;
     align-items: center;
